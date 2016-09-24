@@ -1,11 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <style type="text/css">
+      h1, h6 {
+        text-align: center;
+        padding-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1 align = "center"><%= title %></h1>
-
+    <div class="container-fluid">
+      <h1><%= title %></h1>
+      <h6><%= username %></h3>
+      <hr class="m-y-2">
+    </div>
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 
     <script>
@@ -18,10 +28,8 @@
 
       client.add(torrentId, function (torrent) {
         var file = torrent.files[0];
-        file.appendTo('body')
+        file.appendTo('body');
       })
     </script>
-    user: <%= username %><br>
-    magnet: <%= magnet %>
   </body>
 </html>

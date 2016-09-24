@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js">></script>
+<script type="text/javascript">
+	var client = new WebTorrent()
+	function handleFiles(files) {
+		var video = {};
+		
+		client.seed(files[0], function(torrent) {
+			video.magnet = torrent.magnetURI;
+			video.title = document.getElementById().value;
+		})
+	}
+</script>
+<input type="text" id = "name">
+<input type="file" onchange="handleFiles(this.files)">
+</body>
+</html>
