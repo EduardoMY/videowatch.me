@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= user %></title>
+</head>
+<body>
+
+</body>
+
+var express = require('express');
+var app = express();
+var path = require('path');
+var sqlite3 = require('sqlite3').verbose();
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+
+var videos = {};
+
+app.get('/upload', function(req, res) {
+    res.sendFile(path.join(__dirname + '/upload.html'));
+});
+
+app.get('/download', function (req, res) {
+	res.sendFile(path.join(__dirname + '/download.html'));
+});
+
+app.get('/lobby', function (req, res) {
+	res.sendFile(path.join(__dirname + '/lobby.html'));
+});
+
+app.get('/videos/:video_id', function (req, res) {
+  db = new sqlite3.Database("video.db")
+  var video_id = req.params["video_id"];
+  db.serialize(function() { 
+    db.get("select titulo, video_link from videos where rowid = " + video_id, function(error, data) {
+      console.log(data);
+      res.render('video', {
+        title: data.titulo,
+        magnet: "magnet:?xt=urn:btih:c6e0fbfbcfa180a4d4521d96edcffdf6b5f1fd86&dn=begin_code.h&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com"
+      })
+    });
+  });
+  db.close();
+})
+
+app.post('/:userId/upload', function(req, res) {
+  db = new sqlite3.Database("video.db")
+  db.serialize(function() {
+  db.run('insert into videos(usuario_fk, titulo, video_link, tumbnail) values(' + 
+      req.params["userId"] + ', "' +
+      req.body["titulo"] + '", "' +
+      req.body["video"] + '", "' +
+      req.body["tumbnail"] + 
+  '")');
+  })
+  db.close();
+});
+
+app.get('/:userId/query', function(req, res) {
+  db = new sqlite3.Database("video.db")
+  db.serialize(function() {
+    db.all('select * from videos where usuario_fk = ' + req.params["userId"], function(err, rows) {
+      res.json(rows);
+    })
+  })
+  db.close();
+
+})
+
+app.listen(6969);
+
+</html>
