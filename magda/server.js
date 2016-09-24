@@ -25,12 +25,29 @@ app.get('/', function(req, res) {
   db.close();
 })
 
+app.get('/users/:username', function(req, res) {
+  db = new sqlite3.Database("video.db");
+  var username = req.params['username'];
+  db.serialize(function() {
+    db.all('select title, user from videos where user = ' + '"' + username + '"', function(err, rows) {
+      res.render('user', {
+        username: rows.user,
+        videos: rows
+      })
+    })
+  })
+})
+
 app.get('/videos/:id', function(req, res) {
   db = new sqlite3.Database("video.db");
   var id = req.params['id'];
   db.serialize(function() {
     db.get('select * from videos where rowid = ' + id, function(err, row) {
-
+      res.render('video', {
+        title: row.title,
+        magnet: row.video,
+        username: row.user
+      })
     })
   })
 })
@@ -58,6 +75,7 @@ app.post('/login', function(req, res) {
   })
   db.close();
 });
+
 app.post('/register', function(req, res) {
   db = new sqlite3.Database("video.db")
   db.serialize(function() {
