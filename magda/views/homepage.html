@@ -1,17 +1,37 @@
-<!doctype html>
-
-<html>
+<!DOCTYPE html>
+<html lang="en"><!doctype html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> VideoWatch</title>
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
   </head>
   <body>
-    <h1>Bienvenido a Webhook</h1>
-    <p>Buscar Video </p>
-    <form>
-      <input type='text' id="query"/>
+    <center>
+      <h1>Bienvenido a Webhook</h1>
+      <h2>Buscar Video </h2>
+    </center>
+    <br> <br>
+    <form method="get">
+      <div class="row">
+	<div class="col-md-offset-3 col-md-4"> <input type='text' id="query" class="form-control"/> </div>
+	<div class="col-md-2"><input type='submit' value='Buscar' class="btn btn-default"/></div>
+      </div>
     </form>
-    <br/>
-    <%videos.forEach(function(video) { %>
-    <a href="/videos/<%= video.rowid %>"><%= video.title %></p>
-    <% }) %>
+    <br> <br>
+    <div id="content" class="offset-col-md-2 col-md-8">
+      <%videos.forEach(function(video) { %>
+      <div class="col-sm-4"><a href="/videos/<%= video.rowid %>"><%= video.title %></a></div>
+      <% }); %>
+</div> Final<!-- COntent -->
+<script src="https://use.fontawesome.com/6b08859ada.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

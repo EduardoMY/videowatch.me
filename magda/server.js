@@ -14,14 +14,21 @@ app.set('view engine', 'html');
 var tokens = {};
 
 app.get('/', function(req, res) {
-  db = new sqlite3.Database("video.db");
-  db.serialize(function() {
-    db.all('select rowid, title from videos limit 20', function(err, rows) {
-      res.render('homepage', {
-        videos: rows
-      })
-    })
-  })
+    db = new sqlite3.Database("video.db");
+/*    if(req.query!=={}){
+	db.all("SELECT DISTINCT USER FROM VIDEOS LIKE  '%"+req.query.q+"%'  UNION SELECT TITLE, VIDEO FROM VIDEOS LIKE '%"+req.query.q+"&'", function (err, rows) {
+	    res.render('homepage', {videos:rows});													      });
+    }
+    else{ */
+	db.serialize(function() {
+	    db.all('select rowid, title from videos limit 20', function(err, rows) {
+		res.render('homepage', {
+		    videos: rows
+		});
+	    });
+	});
+//    }
+
   db.close();
 })
 
