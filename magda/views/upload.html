@@ -11,7 +11,7 @@
 var client = new WebTorrent()
 
 function handleFile(files) {
-  client.seed(files[0], {announce: "http://javierrizzo.com/announce"},function (torrent) {
+  client.seed(files[0],function (torrent) {
     console.log('Client is seeding ' + torrent.magnetURI)
   })
 }
