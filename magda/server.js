@@ -29,13 +29,15 @@ app.get('/users/:username', function(req, res) {
   db = new sqlite3.Database("video.db");
   var username = req.params['username'];
   db.serialize(function() {
-    db.all('select title, user from videos where user = ' + '"' + username + '"', function(err, rows) {
+    db.all('select rowid, user, video, tumbnail, title from videos where user = ' + '"' + username + '"', function(err, rows) {
+      console.log(rows);
       res.render('user', {
-        username: rows.user,
+        user: username,
         videos: rows
       })
     })
   })
+  db.close();
 })
 
 app.get('/videos/:id', function(req, res) {
@@ -50,6 +52,7 @@ app.get('/videos/:id', function(req, res) {
       })
     })
   })
+  db.close();
 })
 
 app.post('/login', function(req, res) {
