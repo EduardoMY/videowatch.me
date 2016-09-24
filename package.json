@@ -1,0 +1,18 @@
+{
+  "name": "videowatch.me",
+  "version": "0.0.1",
+  "description": "Distributed video-sharing platform.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EduardoMY/videowatch.me.git"
+  },
+  "author": "Antonio de Luna, Edgar Magdaleno, Eduardo Medina, Javier Rizzo",
+  "license": "Beerware",
+  "bugs": {
+    "url": "https://github.com/EduardoMY/videowatch.me/issues"
+  }
+}
