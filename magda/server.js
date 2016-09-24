@@ -13,13 +13,13 @@ app.set('view engine', 'html');
 
 var tokens = {};
 
+app.get('/upload', function(req, res) {
+  res.render('upload');
+})
+
 app.get('/download', function(req, res) {
   res.render('download');
-});
-
-app.get('/down', function(req, res) {
-  res.render('down');
-});
+})
 
 app.get('/', function(req, res) {
   db = new sqlite3.Database("video.db");
@@ -158,4 +158,4 @@ app.get('/:userId/query', function(req, res) {
 
 })
 
-app.listen(80);
+app.listen(8000);
