@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>VideoWatch.Me</title>
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> 
+  </head>
+  <body>
+    <div id="screen-main" class="screen">
+      <div class="container">
+        <div class="row">
+          <div class="jumbotron">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <img class="img-responsive" src="img/logo.png" alt="VideoWatch.Me Logo">
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <div class="title-padding row visible-md"></div>
+                <div class="title-padding row visible-lg"></div>
+                <div class="row">
+                  <h1>VideoWatch.Me</h1>
+                </div>
+                <div class="row"><cite>Share your videos. Keep it yours.</cite></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <a id="authenticate-link" href="#">Log in or create account</a>
+        </div>
+        <div class="row">
+          <div id="footer">
+            <p>Made with ♥ by 3.35 Team</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-login" class="screen">
+      <div class="container">
+        <div id="login-div" class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
+          <form>
+            <div class="form-group"><input id="login-email" class="form-control" type="text" placeholder="Username"></div>
+            <div class="form-group"><input id="login-pass" class="form-control" type="password" placeholder="Password"></div>
+            <button type="button" class="btn btn-primary">Login or Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>$ = jQuery = require('jquery');</script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/gui.js"></script>
+    <script src="js/login.js"></script>
+  </body>
+</html>
+

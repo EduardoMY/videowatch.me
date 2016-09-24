@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bittorrent-tracker": "^8.0.11",
     "body-parser": "^1.15.2",
+    "drag-drop": "^2.12.1",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
-    "sqlite3": "^3.1.4"
+    "sqlite3": "^3.1.4",
+    "webtorrent": "^0.97.1"
   }
 }

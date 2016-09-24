@@ -13,6 +13,14 @@ app.set('view engine', 'html');
 
 var tokens = {};
 
+app.get('/download', function(req, res) {
+  res.render('download');
+})
+
+app.get('/down', function(req, res) {
+  res.render('down');
+})
+
 app.get('/', function(req, res) {
     db = new sqlite3.Database("video.db");
 /*    if(req.query!=={}){
@@ -36,13 +44,15 @@ app.get('/users/:username', function(req, res) {
   db = new sqlite3.Database("video.db");
   var username = req.params['username'];
   db.serialize(function() {
-    db.all('select title, user from videos where user = ' + '"' + username + '"', function(err, rows) {
+    db.all('select rowid, user, video, tumbnail, title from videos where user = ' + '"' + username + '"', function(err, rows) {
+      console.log(rows);
       res.render('user', {
-        username: rows.user,
+        user: username,
         videos: rows
       })
     })
   })
+  db.close();
 })
 
 app.get('/videos/:id', function(req, res) {
@@ -57,6 +67,7 @@ app.get('/videos/:id', function(req, res) {
       })
     })
   })
+  db.close();
 })
 
 app.post('/login', function(req, res) {
@@ -76,7 +87,7 @@ app.post('/login', function(req, res) {
         return;
       }
       else {
-        res.sendStatus(404);
+        res.json({login: false})
       }
     })
   })
