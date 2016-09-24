@@ -22,21 +22,14 @@ app.get('/down', function(req, res) {
 })
 
 app.get('/', function(req, res) {
-    db = new sqlite3.Database("video.db");
-/*    if(req.query!=={}){
-	db.all("SELECT DISTINCT USER FROM VIDEOS LIKE  '%"+req.query.q+"%'  UNION SELECT TITLE, VIDEO FROM VIDEOS LIKE '%"+req.query.q+"&'", function (err, rows) {
-	    res.render('homepage', {videos:rows});													      });
-    }
-    else{ */
-	db.serialize(function() {
-	    db.all('select rowid, title from videos limit 20', function(err, rows) {
-		res.render('homepage', {
-		    videos: rows
-		});
-	    });
-	});
-//    }
-
+  db = new sqlite3.Database("video.db");
+  db.serialize(function() {
+    db.all('select rowid, title from videos limit 20', function(err, rows) {
+      res.render('homepage', {
+        videos: rows
+      })
+    })
+  })
   db.close();
 })
 
@@ -99,16 +92,19 @@ app.post('/register', function(req, res) {
   db.serialize(function() {
     db.run('insert into users(username, password) values( "' + req.body["user"] + '", "' + req.body["password"] +'")', function(err, rows) {
       if(err) {
-        res.sendStatus(404);
+        res.json({success: false})
         
         console.log("errored  " + err);
         return;
       }
+      else {
+        console.log("okd");
+        res.json({success: true})
+
+      }
     })
   })
   db.close();
-  console.log("okd");
-  res.sendStatus(200);
 });
 
 function getRandomInt(min, max) {
@@ -127,8 +123,8 @@ app.post('/users/:user/new/:key', function(req, res) {
   }
   db = new sqlite3.Database("video.db")
   db.serialize(function() {
-  db.run('insert into videos(user, title, video, tumbnail) values(' + 
-      req.params["user"] + ', "' +
+  db.run('insert into videos(user, title, video, tumbnail) values("' +
+      req.params["user"] + '", "' +
       req.body["title"] + '", "' +
       req.body["video"] + '", "' +
       req.body["tumbnail"] + 
