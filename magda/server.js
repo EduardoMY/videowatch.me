@@ -80,7 +80,7 @@ app.post('/login', function(req, res) {
         return;
       }
       else {
-        res.sendStatus(404);
+        res.json({login: false})
       }
     })
   })
