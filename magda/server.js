@@ -7,39 +7,47 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var videos = {};
+var tokens = {};
 
-app.get('/upload', function(req, res) {
-    res.sendFile(path.join(__dirname + '/upload.html'));
-});
-
-app.get('/download', function (req, res) {
-	res.sendFile(path.join(__dirname + '/download.html'));
-});
-
-app.get('/lobby', function (req, res) {
-	res.sendFile(path.join(__dirname + '/lobby.html'));
-});
-
-app.get('/videos', function (req, res) {
-
-})
 
 app.post('/login', function(req, res) {
   db = new sqlite3.Database("video.db")
   db.serialize(function() {
-    db.get('select * from users where user = ' + req.body["user"] + ' and password = ' + req.params["password"], function(err, rows) {
+    db.get('select * from users where username = "' + req.body["user"] + '" and password = "' + req.body["password"] + '"', function(err, rows) {
+      if(err) {
+        console.log("error: " + err);
+        res.json({login: false})
+        return;
+      }
       if(rows) {
+        console.log("ok");
         var num = getRandomInt(1, 100000);
-
-        res.json({login: true, key:num })
+        tokens[req.body["user"]] = num;
+        res.json({login: true, key : num });
+        return;
       }
       else {
-        res.json({login: false})
+        res.sendStatus(404);
       }
     })
   })
   db.close();
+});
+app.post('/register', function(req, res) {
+  db = new sqlite3.Database("video.db")
+  db.serialize(function() {
+    db.run('insert into users(username, password) values( "' + req.body["user"] + '", "' + req.body["password"] +'")', function(err, rows) {
+      if(err) {
+        res.sendStatus(404);
+        
+        console.log("errored  " + err);
+        return;
+      }
+    })
+  })
+  db.close();
+  console.log("okd");
+  res.sendStatus(200);
 });
 
 function getRandomInt(min, max) {
@@ -48,17 +56,24 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
       
-app.post('/:userId/upload', function(req, res) {
+app.post('/users/:user/new/:key', function(req, res) {
+  var key = req.params["key"];
+  var user = req.params["user"];
+  if(tokens[user] != key) {
+    res.send("error forbidden");
+    return;
+  }
   db = new sqlite3.Database("video.db")
   db.serialize(function() {
   db.run('insert into videos(user, title, video, tumbnail) values(' + 
-      req.params["userId"] + ', "' +
+      req.params["user"] + ', "' +
       req.body["title"] + '", "' +
       req.body["video"] + '", "' +
       req.body["tumbnail"] + 
   '")');
   })
   db.close();
+  res.send("ok");
 });
 
 app.get('/:userId/query', function(req, res) {
