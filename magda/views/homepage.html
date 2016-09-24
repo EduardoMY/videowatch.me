@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,22 +14,23 @@
   </head>
   <body>
     <center>
-      <h1>Bienvenido a Webhook</h1>
+      <h1>Bienvenido a VideoWatch</h1>
       <h2>Buscar Video </h2>
     </center>
     <br> <br>
-    <form method="get">
+    <form method="post" action="/busqueda">
       <div class="row">
-	<div class="col-md-offset-3 col-md-4"> <input type='text' id="query" class="form-control"/> </div>
+	<div class="col-md-offset-3 col-md-4"> <input type='text' name="search" class="form-control"/> </div>
 	<div class="col-md-2"><input type='submit' value='Buscar' class="btn btn-default"/></div>
       </div>
-    </form>
+      </form>
     <br> <br>
     <div id="content" class="offset-col-md-2 col-md-8">
-      <%videos.forEach(function(video) { %>
+      <% if(videos) { %>
+      <% videos.forEach(function(video) { %>
       <div class="col-sm-4"><a href="/videos/<%= video.rowid %>"><%= video.title %></a></div>
-      <% }); %>
-</div> Final<!-- COntent -->
+      <% }); } %>
+</div> 
 <script src="https://use.fontawesome.com/6b08859ada.js"></script>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

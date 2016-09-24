@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> VideoWatch - Busqueda</title>
+    <title> VideoWatch - Busqueda </title>
     <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
@@ -18,23 +18,24 @@
       <h2>Buscar Video </h2>
     </center>
     <br> <br>
-    <form method="get">
+    <form method="post" action="/busqueda">
       <div class="row">
 	<div class="col-md-offset-3 col-md-4"> <input type='text' id="query" class="form-control"/> </div>
 	<div class="col-md-2"><input type='submit' value='Buscar' class="btn btn-default"/></div>
       </div>
-    </form>
-    <br> <br>
-    <center>
-      <table>
-	<%things.forEach(function(things) { %>
-	<tr>
-	  <td>
-	    <a href="/videos/<%things.rowid%>">things.name</a>
-	      </td>
+      </form>
+      <br> <br>
+      <center>
+	<table>
+	  <%if (things){ %>
+	  <%things.forEach(function(thing) { %>
+	  <tr>
+	    <th>
+	      <a href="/videos/<% thing.name %>"><%= thing.name %></a>
+	      </th>
 	  </tr>
-      <% }%>
-      <table>
+	  <% }); }%>
+      </table>
     </center>
 <script src="https://use.fontawesome.com/6b08859ada.js"></script>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>

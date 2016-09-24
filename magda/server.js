@@ -15,19 +15,14 @@ var tokens = {};
 
 app.get('/download', function(req, res) {
   res.render('download');
-})
+});
 
 app.get('/down', function(req, res) {
   res.render('down');
-})
+});
 
 app.get('/', function(req, res) {
     db = new sqlite3.Database("video.db");
-/*    if(req.query!=={}){
-	db.all("SELECT DISTINCT USER FROM VIDEOS LIKE  '%"+req.query.q+"%'  UNION SELECT TITLE, VIDEO FROM VIDEOS LIKE '%"+req.query.q+"&'", function (err, rows) {
-	    res.render('homepage', {videos:rows});													      });
-    }
-    else{ */
 	db.serialize(function() {
 	    db.all('select rowid, title from videos limit 20', function(err, rows) {
 		res.render('homepage', {
@@ -35,10 +30,22 @@ app.get('/', function(req, res) {
 		});
 	    });
 	});
-//    }
 
   db.close();
-})
+});
+
+app.post('/busqueda', function(req, res){
+    db = new sqlite3.Database("video.db");
+    if(req.body.search!==""){
+	var path="SELECT USER AS Name FROM VIDEOS WHERE Name LIKE '%"+req.body.search+"%'";
+    db.serialize(function () {
+	db.all(path, function(err, rows){//  UNION SELECT TITLE Name FROM VIDEOS LIKE '%"+req.body.search+"&'", function (err, rows) {
+	    console.log();
+	    console.log(rows);
+	    res.render('busqueda', {things:rows});													      });
+    });
+    }
+});
 
 app.get('/users/:username', function(req, res) {
   db = new sqlite3.Database("video.db");
@@ -53,7 +60,7 @@ app.get('/users/:username', function(req, res) {
     })
   })
   db.close();
-})
+});
 
 app.get('/videos/:id', function(req, res) {
   db = new sqlite3.Database("video.db");
