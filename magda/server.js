@@ -22,17 +22,6 @@ app.get('/down', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-<<<<<<< HEAD
-    db = new sqlite3.Database("video.db");
-	db.serialize(function() {
-	    db.all('select rowid, title from videos limit 20', function(err, rows) {
-		res.render('homepage', {
-		    videos: rows
-		});
-	    });
-	});
-
-=======
   db = new sqlite3.Database("video.db");
   db.serialize(function() {
     db.all('select rowid, title from videos limit 20', function(err, rows) {
@@ -41,7 +30,6 @@ app.get('/', function(req, res) {
       })
     })
   })
->>>>>>> 00157ee9b048d64a350f9ee197d9ac7d76046fd4
   db.close();
 });
 
