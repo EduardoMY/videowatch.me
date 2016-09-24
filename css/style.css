@@ -1,0 +1,30 @@
+.jumbotron {
+  background-color: #FFFFFF;
+}
+
+.jumbotron h1 {
+  text-align: center;
+  font-family: 'Lobster', cursive;
+}
+
+.jumbotron img {
+  display: block;
+  margin: 0 auto;
+}
+
+.jumbotron cite {
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 150%;
+  display: block;
+}
+
+.title-padding {
+  padding-top: 20%;
+}
+
+#footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #888888;
+}
