@@ -6,14 +6,14 @@
 <body>
 <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js">></script>
 <script type="text/javascript">
-	 var client = new WebTorrent()
+	var client = new WebTorrent()
+
 	function handleFiles(files) {
 		client.seed(files[0], function(torrent) {
 			console.log(torrent.magnetURI);
 		})
 	}
 </script>
-zsfzd
-<input type="file" id="video" onchange="handleFiles(this.files)">
+<input type="file" onchange="handleFiles(this.files)">
 </body>
 </html>

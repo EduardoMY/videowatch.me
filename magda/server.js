@@ -13,6 +13,14 @@ app.set('view engine', 'html');
 
 var tokens = {};
 
+app.get('/download', function(req, res) {
+  res.render('download');
+})
+
+app.get('/down', function(req, res) {
+  res.render('down');
+})
+
 app.get('/', function(req, res) {
   db = new sqlite3.Database("video.db");
   db.serialize(function() {

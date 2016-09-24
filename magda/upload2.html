@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload</title>
+		<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+		<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var client = new WebTorrent()
+		var file;
+
+		$( document ).ready(function() {
+			var videos = server.getvideos;
+			for(var video in videos)
+				client.seed(video);
+		});
+
+		function upload() {
+			client.seed(file);
+		}
+
+		function handleFiles(uploadedFile) {
+			file = uploadedFile[0];
+		}
+	</script>
+
+	Title: <input type="title" id="title"><br>
+	File: <input type="file" id="file" onchange="handleFile(this.files)"><br>
+	<button onclick="upload()">Upload</button>
+	<a href="lobby">Lobby</a>
+</body>
+</html>
