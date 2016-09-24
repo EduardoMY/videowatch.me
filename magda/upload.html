@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload</title>
+    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var client = new WebTorrent()
+
+  		function handleFiles(files) {
+  			console.log(files);
+  			client.seed(files[0], function (torrent) {
+    			console.log('Client is seeding ' + torrent.magnetURI)
+  			})
+  		}
+	</script>
+
+	<input type="file" id="input" onchange="handleFiles(this.files)">
+</body>
+</html>
