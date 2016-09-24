@@ -46,9 +46,31 @@
       <div class="container">
         <div id="login-div" class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
           <form>
-            <div class="form-group"><input id="login-email" class="form-control" type="text" placeholder="Username"></div>
+            <div class="form-group"><input id="login-user" class="form-control" type="text" placeholder="Username"></div>
             <div class="form-group"><input id="login-pass" class="form-control" type="password" placeholder="Password"></div>
-            <button type="button" class="btn btn-primary">Login or Register</button>
+            <button type="button" class="btn btn-primary" onclick="authenticate(success, true);">Login or Register</button>
+          </form>
+          <div id="login-failed" class="alert alert-danger" role="alert" style="display: none">Sorry, your credentials are wrong.</div>
+          <div id="login-success" class="alert alert-success" role="alert" style="display: none">You are registered now!.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-upload" class="screen">
+      <div class="container">
+        <!--<input type="file" id="video" onchange="handleFiles(this.files)">-->
+        <div id="dragndrop">
+          <div class="jumbotron" style="display: block; padding-top: 40vh; margin-top: 10px;"><strong style="display: block; text-align: center; font-size: 300%;">Drag & Drop Your Video Here</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-description" class="screen">
+      <div class="container">
+        <div id="login-div" class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
+          <form>
+            <div class="form-group"><input id="video-title" class="form-control" type="text" placeholder="Your Title"></div>
+            <button type="button" class="btn btn-primary">Submit!</button>
           </form>
         </div>
       </div>
@@ -58,6 +80,23 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/gui.js"></script>
     <script src="js/login.js"></script>
+    <script>var WebTorrent = require('webtorrent'); var dragDrop = require('drag-drop');</script>
+    <script type="text/javascript">
+var client = new WebTorrent()
+
+  dragDrop('#dragndrop', function (files) {
+    client.seed(files[0], function (torrent) {
+      window.magnetURI = torrent.magnetURI;
+      $('#screen-upload').hide(600);
+      $('#screen-description').show(600);
+    })
+  });
+/*function handleFiles(files) {
+  client.seed(files[0], function(torrent) {
+  console.log(torrent.magnetURI);
+  })
+  }*/
+    </script>
   </body>
 </html>
 
