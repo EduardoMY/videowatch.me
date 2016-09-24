@@ -149,4 +149,4 @@ app.get('/:userId/query', function(req, res) {
 
 })
 
-app.listen(6969);
+app.listen(80);
