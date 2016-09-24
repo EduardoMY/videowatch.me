@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		$(function() {
+			var videos = $.getJSON('localhost/videos', function(data) {
+				console.log(data);
+			})
+			
+  			for(var video in videos)
+  				client.seed(video);
+		});
+	</script>
+	Nada por aqui
+</body>
+</html>
