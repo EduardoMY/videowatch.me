@@ -22,6 +22,7 @@ app.get('/down', function(req, res) {
 });
 
 app.get('/', function(req, res) {
+<<<<<<< HEAD
     db = new sqlite3.Database("video.db");
 	db.serialize(function() {
 	    db.all('select rowid, title from videos limit 20', function(err, rows) {
@@ -31,6 +32,16 @@ app.get('/', function(req, res) {
 	    });
 	});
 
+=======
+  db = new sqlite3.Database("video.db");
+  db.serialize(function() {
+    db.all('select rowid, title from videos limit 20', function(err, rows) {
+      res.render('homepage', {
+        videos: rows
+      })
+    })
+  })
+>>>>>>> 00157ee9b048d64a350f9ee197d9ac7d76046fd4
   db.close();
 });
 
@@ -106,16 +117,19 @@ app.post('/register', function(req, res) {
   db.serialize(function() {
     db.run('insert into users(username, password) values( "' + req.body["user"] + '", "' + req.body["password"] +'")', function(err, rows) {
       if(err) {
-        res.sendStatus(404);
+        res.json({success: false})
         
         console.log("errored  " + err);
         return;
       }
+      else {
+        console.log("okd");
+        res.json({success: true})
+
+      }
     })
   })
   db.close();
-  console.log("okd");
-  res.sendStatus(200);
 });
 
 function getRandomInt(min, max) {
@@ -134,8 +148,8 @@ app.post('/users/:user/new/:key', function(req, res) {
   }
   db = new sqlite3.Database("video.db")
   db.serialize(function() {
-  db.run('insert into videos(user, title, video, tumbnail) values(' + 
-      req.params["user"] + ', "' +
+  db.run('insert into videos(user, title, video, tumbnail) values("' +
+      req.params["user"] + '", "' +
       req.body["title"] + '", "' +
       req.body["video"] + '", "' +
       req.body["tumbnail"] + 
@@ -156,4 +170,4 @@ app.get('/:userId/query', function(req, res) {
 
 })
 
-app.listen(6969);
+app.listen(80);
