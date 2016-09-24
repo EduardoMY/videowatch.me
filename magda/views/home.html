@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<div id = "catalog"></div>
+	 <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>	
+	<script type="text/javascript">
+		var client = new WebTorrent()
+		var thumb = 'magnet:?xt=urn:btih:ef8084b448b26e951c567797ee5434739ccf19a2&dn=puyo0.png&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com	'
+
+		client.add(thumb, function (torrent) {
+			var file = torrent.files[0]
+			console.log("download");
+			file.appendTo('body')
+		})
+	</script>
+</body>
+</html>
