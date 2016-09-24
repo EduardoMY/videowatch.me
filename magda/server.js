@@ -7,8 +7,22 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+
 var tokens = {};
 
+app.get('/', function(req, res) {
+  db = new sqlite3.Database("video.db");
+  db.serialize(function() {
+    db.all('select * from videos limit 20', function(err, rows) {
+      res.render('homepage', {
+        videos: rows
+      })
+    })
+  })
+})
 
 app.post('/login', function(req, res) {
   db = new sqlite3.Database("video.db")
@@ -55,6 +69,7 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
       
 app.post('/users/:user/new/:key', function(req, res) {
   var key = req.params["key"];
