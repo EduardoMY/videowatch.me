@@ -16,10 +16,21 @@ var tokens = {};
 app.get('/', function(req, res) {
   db = new sqlite3.Database("video.db");
   db.serialize(function() {
-    db.all('select * from videos limit 20', function(err, rows) {
+    db.all('select rowid, title from videos limit 20', function(err, rows) {
       res.render('homepage', {
         videos: rows
       })
+    })
+  })
+  db.close();
+})
+
+app.get('/videos/:id', function(req, res) {
+  db = new sqlite3.Database("video.db");
+  var id = req.params['id'];
+  db.serialize(function() {
+    db.get('select * from videos where rowid = ' + id, function(err, row) {
+
     })
   })
 })

@@ -5,7 +5,8 @@
   </head>
   <body>
     <h1>Bienvenido a Webhook</h1>
-    <%videos.foreach(function(video) { %>
+    <%videos.forEach(function(video) { %>
+    <a href="/videos/<%= video.rowid %>"><%= video.title %></p>
     <% }) %>
   </body>
 </html>
