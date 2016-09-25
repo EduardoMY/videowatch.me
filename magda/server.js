@@ -46,6 +46,7 @@ app.post('/busqueda', function(req, res){
     }
 });
 
+
 app.get('/users/:username', function(req, res) {
   db = new sqlite3.Database("video.db");
   var username = req.params['username'];
@@ -62,6 +63,8 @@ app.get('/users/:username', function(req, res) {
   })
   db.close();
 });
+
+
 
 app.get('/videos/:id', function(req, res) {
   db = new sqlite3.Database("video.db");
@@ -128,6 +131,34 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+app.post('/users/:user/update/:title/:key', function(req, res) {
+  db = new sqlite3.Database("video.db");
+  var title = req.params['title'];
+  var user = req.params['user'];
+  var key = req.params['key'];
+  console.log("wtf");
+
+  if(tokens[user] != key) {
+    res.send("error forbidden");
+    console.log("error in token")
+    return;
+  }
+
+  db.serialize(function() {
+    var video = req.body['video'];
+    console.log("this is what were turning into " + video)
+    db.run('update videos set video = "' + video + '" where title = "'+ title + '" and user = "' + user+'"', function(err) {
+      if(err) {
+        res.sendStatus(404);
+          console.log(err);
+      }
+      else {
+        res.sendStatus(200);
+      }
+    })
+  })
+  db.close();
+});
       
 app.post('/users/:user/new/:key', function(req, res) {
   var key = req.params["key"];
