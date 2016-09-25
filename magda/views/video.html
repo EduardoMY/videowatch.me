@@ -26,7 +26,7 @@
       })
 
       function get() {
-        var torrentId = 'magnet:?xt=urn:btih:4eb180e41a17ab50b8ebeb574261fd5e8ddbf3b5&dn=SampleVideo_1280x720_2mb.mp4&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
+        var torrentId = <% magnet %>
         client.add(torrentId, onTorrent)
         console.log("hola!: " + torrentId);
       }
