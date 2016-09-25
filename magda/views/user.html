@@ -15,26 +15,26 @@
   <body>
     <center>
       <h1>VideoWatch</h1>
-      <h2>Buscar Video </h2>
+      <h2>Buscar Usuario </h2>
     </center>
     <br> <br>
-    <form method="get">
+    <form method="post" action="/busqueda">
       <div class="row">
-	<div class="col-md-offset-3 col-md-4"> <input type='text' id="query" class="form-control"/> </div>
+	<div class="col-md-offset-3 col-md-4"> <input type='text' name="search" class="form-control"/> </div>
 	<div class="col-md-2"><input type='submit' value='Buscar' class="btn btn-default"/></div>
       </div>
     </form>
     <br> <br>
     <center>
       <table>
-	<%things.forEach(function(things) { %>
+	<%videos.forEach(function(video) { %>
 	<tr>
 	  <td>
-	    <a href="/videos/<%things.rowid%>">things.name</a>
+	    <a href="/videos/<%=video.rowid%>"><%=video.title%></a>
 	      </td>
 	  </tr>
-      <% }%>
-      <table>
+      <% }); %>
+      </table>
     </center>
 <script src="https://use.fontawesome.com/6b08859ada.js"></script>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
