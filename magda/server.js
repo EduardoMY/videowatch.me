@@ -15,11 +15,11 @@ var tokens = {};
 
 app.get('/upload', function(req, res) {
   res.render('upload');
-})
+});
 
 app.get('/download', function(req, res) {
   res.render('download');
-})
+});
 
 app.get('/', function(req, res) {
   db = new sqlite3.Database("video.db");
@@ -36,10 +36,10 @@ app.get('/', function(req, res) {
 app.post('/busqueda', function(req, res){
     db = new sqlite3.Database("video.db");
     if(req.body.search!==""){
-	var path="SELECT USER AS Name FROM VIDEOS WHERE Name LIKE '%"+req.body.search+"%'";
+	var path="SELECT USERNAME AS name FROM USERS  WHERE UserNAME LIKE '%"+req.body.search+"%'";
     db.serialize(function () {
 	db.all(path, function(err, rows){//  UNION SELECT TITLE Name FROM VIDEOS LIKE '%"+req.body.search+"&'", function (err, rows) {
-	    console.log();
+	    console.log(path);
 	    console.log(rows);
 	    res.render('busqueda', {things:rows});													      });
     });
@@ -49,9 +49,11 @@ app.post('/busqueda', function(req, res){
 app.get('/users/:username', function(req, res) {
   db = new sqlite3.Database("video.db");
   var username = req.params['username'];
-  db.serialize(function() {
-    db.all('select rowid, user, video, tumbnail, title from videos where user = ' + '"' + username + '"', function(err, rows) {
-      console.log(rows);
+    db.serialize(function() {
+	var query='select v.rowid, v.user, v.video, v.tumbnail, v.title from videos v inner join users u on v.user=u.rowid where u.username = ' + '"' + username + '"';
+    db.all(query, function(err, rows) {
+	console.log(rows);
+	console.log(query);
       res.render('user', {
         user: username,
         videos: rows
