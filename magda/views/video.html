@@ -17,6 +17,7 @@
       <div class = "video" class = "col-md-4 col-md-offset-4"></div>
     </div>
     <div class="log" align="center"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
     <script>
       var client = new WebTorrent()
@@ -28,19 +29,14 @@
       function get() {
         var torrentId = '<%= magnet %>'
         client.add(torrentId, onTorrent)
-        console.log("hola!: " + torrentId);
+        console.log("MagnetURI: " + torrentId);
       }
 
-      function onTorrent (torrent) { 
-
-        // Print out progress every 5 seconds
-        // Render all files into to the page
+      function onTorrent (torrent) {
         torrent.files.forEach(function (file) {
           file.appendTo('.log')
           file.getBlobURL(function (err, url) {
             if (err) return log(err.message)
-            log('File done.')
-            log('<a href="' + url + '">Download full file: ' + file.name + '</a>')
           })
         })
       }
@@ -51,7 +47,9 @@
         document.querySelector('.log').appendChild(p)
       }
       
-      document.onload(get());
+      $( document ).ready(function() {
+        get();
+      });
     </script>
   </body>
 </html>
