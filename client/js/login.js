@@ -26,6 +26,7 @@ function register(user, pass, callback) {
 
 function authenticate(callback, isRegister) {
   if(isRegister) {
+    window.username = $('#login-user').val();
     register($('#login-user').val(), $('#login-pass').val(), callback);
   } else {
     login($('#login-user').val(), $('#login-pass').val(), callback);
@@ -37,6 +38,7 @@ function success(body) {
     window.key = body.key;
     $('#screen-login').hide(600);
     $('#screen-upload').show(600);
+    //loadPaths();
   } else {
     $('#login-failed').show();
   }

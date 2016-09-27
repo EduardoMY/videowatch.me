@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "drag-drop": "^2.12.1",
+    "electron-json-storage": "^2.0.0",
     "jquery": "^3.1.1",
     "webtorrent": "^0.97.1"
   }

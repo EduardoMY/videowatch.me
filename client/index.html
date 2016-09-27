@@ -70,7 +70,7 @@
         <div id="login-div" class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
           <form>
             <div class="form-group"><input id="video-title" class="form-control" type="text" placeholder="Your Title"></div>
-            <button type="button" class="btn btn-primary">Submit!</button>
+            <button type="button" class="btn btn-primary" onclick="if($('#video-title').val() != '') submitTorrent();">Submit!</button>
           </form>
         </div>
       </div>
@@ -81,23 +81,30 @@
     <script src="js/gui.js"></script>
     <script src="js/login.js"></script>
     <script>var WebTorrent = require('webtorrent'); var dragDrop = require('drag-drop');</script>
+    <script src="js/settings.js"></script>
+    <script src="js/submit.js"></script>
     <script type="text/javascript">
-var client = new WebTorrent()
+  var client = new WebTorrent()
 
   dragDrop('#dragndrop', function (files) {
     client.seed(files[0], function (torrent) {
+      window.lastFile = files[0].path;
       window.magnetURI = torrent.magnetURI;
+      console.log(torrent.magnetURI);
       $('#screen-upload').hide(600);
       $('#screen-description').show(600);
     })
   });
+
 /*function handleFiles(files) {
   client.seed(files[0], function(torrent) {
   console.log(torrent.magnetURI);
   })
   }*/
+
+$(document).ready(function() {
+});
     </script>
-    <script src="js/screenshotTaker.js"></script>
   </body>
 </html>
 
